@@ -9,11 +9,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
-import { LoginRequest } from '../models/auth.models';
-import { TokenService } from '../services/token.service';
+import { RegisterRequest } from '../models/auth.models';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [
     CommonModule,
@@ -24,47 +23,48 @@ import { TokenService } from '../services/token.service';
     NzCardModule,
     NzIconModule
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css'
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class RegisterComponent {
+  registerForm: FormGroup;
   isLoading = false;
   passwordVisible = false;
   private authService = inject(AuthService);
-  private tokenService = inject(TokenService);
   private message = inject(NzMessageService);
   private router = inject(Router);
 
   constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
+    this.registerForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
+    if (this.registerForm.valid) {
       this.isLoading = true;
-      const credentials: LoginRequest = {
-        email: this.loginForm.value.email.trim(),
-        password: this.loginForm.value.password
+      const data: RegisterRequest = {
+        name: this.registerForm.value.name.trim(),
+        email: this.registerForm.value.email.trim(),
+        password: this.registerForm.value.password
       };
       
-      this.authService.login(credentials).subscribe({
+      this.authService.register(data).subscribe({
         next: (response) => {
           this.isLoading = false;
-          this.message.success('Login realizado');
+          this.message.success('Cadastro realizado');
           // TODO: Redirecionar para página de produtos
         },
         error: (error) => {
           this.isLoading = false;
-          const errorMessage = error.error?.message || 'Erro ao realizar login. Tente novamente.';
+          const errorMessage = error.error?.message || 'Erro ao realizar cadastro. Tente novamente.';
           this.message.error(errorMessage);
         }
       });
     } else {
-      Object.values(this.loginForm.controls).forEach(control => {
+      Object.values(this.registerForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
@@ -77,7 +77,7 @@ export class LoginComponent {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  goToRegister(): void {
-    this.router.navigate(['/register']);
+  goToLogin(): void {
+    this.router.navigate(['/login']);
   }
 }

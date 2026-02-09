@@ -1,6 +1,19 @@
-<div class="login-container">
-  <nz-card nzTitle="Bem vindo(a)" class="login-card">
-    <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<div class="register-container">
+  <nz-card nzTitle="Criar conta" class="register-card">
+    <form nz-form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Nome</nz-form-label>
+        <nz-form-control 
+          nzErrorTip="O nome deve ter no mínimo 3 caracteres"
+          [nzSpan]="24">
+          <input 
+            nz-input 
+            formControlName="name" 
+            placeholder="Digite seu nome"
+            type="text" />
+        </nz-form-control>
+      </nz-form-item>
+
       <nz-form-item>
         <nz-form-label [nzSpan]="24" nzRequired>Email</nz-form-label>
         <nz-form-control 
@@ -47,23 +60,23 @@
             nzType="primary" 
             nzBlock 
             [nzLoading]="isLoading"
-            [disabled]="!loginForm.valid">
-            Entrar
+            [disabled]="!registerForm.valid">
+            Cadastrar
           </button>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-control [nzSpan]="24">
-          <div class="login-footer">
-            <span>Não tem uma conta?</span>
+          <div class="register-footer">
+            <span>Já tem uma conta?</span>
             <button 
               type="button"
               nz-button 
               nzType="link"
-              (click)="goToRegister()"
-              class="register-link">
-              Criar conta
+              (click)="goToLogin()"
+              class="login-link">
+              Fazer login
             </button>
           </div>
         </nz-form-control>
