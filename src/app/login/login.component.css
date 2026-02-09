@@ -1,0 +1,87 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--color-bg-page);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+::ng-deep .login-card .ant-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+::ng-deep .login-card .ant-card-head {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+::ng-deep .login-card .ant-card-head-title {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 24px;
+}
+
+::ng-deep .login-card .ant-card-body {
+  background: var(--color-surface);
+  padding: 32px;
+}
+
+::ng-deep .login-card .ant-input {
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+  border-radius: 4px;
+  color: var(--color-text-primary);
+}
+
+::ng-deep .login-card .ant-input:focus,
+::ng-deep .login-card .ant-input:hover {
+  border-color: var(--color-primary);
+}
+
+::ng-deep .login-card .ant-input::placeholder {
+  color: var(--color-border);
+}
+
+::ng-deep .login-card .ant-btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  height: 40px;
+  font-weight: 500;
+  border-radius: 4px;
+  color: var(--color-white);
+}
+
+::ng-deep .login-card .ant-btn-primary:hover,
+::ng-deep .login-card .ant-btn-primary:focus {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+::ng-deep .login-card .ant-btn-primary[disabled] {
+  background-color: var(--color-bg-section);
+  border-color: var(--color-border);
+  color: var(--color-border);
+}
+
+::ng-deep .login-card .ant-form-item-label > label {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+::ng-deep .login-card .ant-form-item-explain-error {
+  color: var(--color-error);
+}

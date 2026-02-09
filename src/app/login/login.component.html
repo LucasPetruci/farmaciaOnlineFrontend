@@ -1,0 +1,44 @@
+<div class="login-container">
+  <nz-card nzTitle="Bem vindo(a)" class="login-card">
+    <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Email</nz-form-label>
+        <nz-form-control 
+          nzErrorTip="Por favor, insira um email válido"
+          [nzSpan]="24">
+          <input 
+            nz-input 
+            formControlName="email" 
+            placeholder="Digite seu email"
+            type="email" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Senha</nz-form-label>
+        <nz-form-control 
+          nzErrorTip="A senha deve ter no mínimo 6 caracteres"
+          [nzSpan]="24">
+          <input 
+            nz-input 
+            type="password" 
+            formControlName="password" 
+            placeholder="Digite sua senha" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <button 
+            nz-button 
+            nzType="primary" 
+            nzBlock 
+            [nzLoading]="isLoading"
+            [disabled]="!loginForm.valid">
+            Entrar
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-card>
+</div>
