@@ -1,25 +1,26 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { LoginRequest, LoginResponse } from '../models/auth.models';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8000/api';
+  private tokenService = inject(TokenService);
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    });
-
-    return this.http.post<LoginResponse>(
-      `${this.apiUrl}/login`, 
-      credentials,
-      { headers }
+    return this.http.post<LoginResponse>('/login', credentials).pipe(
+      tap(response => {
+        this.tokenService.setToken(response.token);
+        this.tokenService.setUser(response.user);
+      })
     );
+  }
+
+  logout(): void {
+    this.tokenService.clear();
   }
 }

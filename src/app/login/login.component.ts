@@ -9,6 +9,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { LoginRequest } from '../models/auth.models';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ export class LoginComponent {
   isLoading = false;
   passwordVisible = false;
   private authService = inject(AuthService);
+  private tokenService = inject(TokenService);
   private message = inject(NzMessageService);
 
   constructor(private fb: FormBuilder) {
@@ -50,7 +52,6 @@ export class LoginComponent {
       this.authService.login(credentials).subscribe({
         next: (response) => {
           this.isLoading = false;
-          // Armazenar token e dados do usuário local storage
           this.message.success('Login realizado');
           // TODO: Redirecionar para página de produtos
         },
