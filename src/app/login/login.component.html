@@ -19,11 +19,24 @@
         <nz-form-control 
           nzErrorTip="A senha deve ter no mínimo 6 caracteres"
           [nzSpan]="24">
-          <input 
-            nz-input 
-            type="password" 
-            formControlName="password" 
-            placeholder="Digite sua senha" />
+          <div class="password-input-wrapper">
+            <input 
+              nz-input 
+              [type]="passwordVisible ? 'text' : 'password'" 
+              formControlName="password" 
+              placeholder="Digite sua senha" 
+              class="password-input" />
+            <button 
+              type="button" 
+              class="password-toggle"
+              (click)="togglePasswordVisibility()"
+              tabindex="-1">
+              <nz-icon 
+                [nzType]="passwordVisible ? 'eye' : 'eye-invisible'" 
+                nzTheme="outline">
+              </nz-icon>
+            </button>
+          </div>
         </nz-form-control>
       </nz-form-item>
 
