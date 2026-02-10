@@ -29,7 +29,11 @@ export class AuthService {
     );
   }
 
-  logout(): void {
-    this.tokenService.clear();
+  logout(): Observable<void> {
+    return this.http.post<void>('/logout', {}).pipe(
+      tap(() => {
+        this.tokenService.clear();
+      })
+    );
   }
 }
