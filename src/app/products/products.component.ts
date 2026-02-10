@@ -123,9 +123,12 @@ export class ProductsComponent implements OnInit {
 
   onProductCreated(): void {
     this.closeDrawer();
-    // Volta para a primeira página e recarrega os produtos
     this.currentPage = 1;
     this.loadProducts();
+  }
+
+  get drawerWidth(): number | string {
+    return window.innerWidth <= 768 ? '100%' : 400;
   }
 
   Math = Math;
