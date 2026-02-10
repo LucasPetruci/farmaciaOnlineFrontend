@@ -1,7 +1,7 @@
 <div class="products-container">
   <div class="products-header">
     <h1 class="products-title">Produtos</h1>
-    <button nz-button nzType="primary" class="add-button">
+    <button nz-button nzType="primary" class="add-button" (click)="openDrawer()">
       <span nz-icon nzType="plus" nzTheme="outline"></span>
       Cadastrar
     </button>
@@ -84,4 +84,18 @@
       </div>
     </nz-spin>
   </nz-card>
+
+  <nz-drawer
+    [nzVisible]="drawerVisible"
+    nzTitle="Cadastrar Produto"
+    [nzWidth]="400"
+    [nzPlacement]="'right'"
+    (nzOnClose)="closeDrawer()">
+    <ng-container *nzDrawerContent>
+      <app-product-form
+        (productCreated)="onProductCreated()"
+        (cancelled)="closeDrawer()">
+      </app-product-form>
+    </ng-container>
+  </nz-drawer>
 </div>

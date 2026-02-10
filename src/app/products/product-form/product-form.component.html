@@ -1,0 +1,72 @@
+<form nz-form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="24" nzRequired>Nome</nz-form-label>
+    <nz-form-control 
+      nzErrorTip="O nome deve ter no mínimo 3 caracteres"
+      [nzSpan]="24">
+      <input 
+        nz-input 
+        formControlName="name" 
+        placeholder="Digite o nome do produto"
+        type="text" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="24" nzRequired>Preço</nz-form-label>
+    <nz-form-control 
+      nzErrorTip="O preço deve ser maior que zero"
+      [nzSpan]="24">
+      <nz-input-number
+        formControlName="price"
+        [nzMin]="0.01"
+        [nzStep]="0.01"
+        [nzFormatter]="formatPriceInput"
+        [nzParser]="parsePriceInput"
+        style="width: 100%"
+        placeholder="Digite o preço">
+      </nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="24" nzRequired>Tipo</nz-form-label>
+    <nz-form-control 
+      nzErrorTip="Por favor, selecione o tipo"
+      [nzSpan]="24">
+      <nz-select
+        formControlName="type"
+        nzPlaceholder="Selecione o tipo"
+        style="width: 100%">
+        <nz-option 
+          *ngFor="let type of productTypes" 
+          [nzLabel]="type.label" 
+          [nzValue]="type.value">
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzSpan]="24">
+      <div class="drawer-footer">
+        <button 
+          type="button"
+          nz-button 
+          nzType="default" 
+          (click)="onCancel()"
+          [disabled]="isSubmitting">
+          Cancelar
+        </button>
+        <button 
+          type="submit"
+          nz-button 
+          nzType="primary" 
+          [nzLoading]="isSubmitting"
+          [disabled]="!productForm.valid">
+          Salvar
+        </button>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+</form>

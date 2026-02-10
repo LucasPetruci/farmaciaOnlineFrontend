@@ -14,6 +14,12 @@ export interface PaginationLink {
   active: boolean;
 }
 
+export interface CreateProductRequest {
+  name: string;
+  price: number;
+  type: string;
+}
+
 export interface ProductsResponse {
   current_page: number;
   data: Product[];

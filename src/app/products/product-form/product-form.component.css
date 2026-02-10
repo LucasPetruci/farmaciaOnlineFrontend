@@ -1,0 +1,84 @@
+.drawer-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+::ng-deep .ant-form-item-label > label {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+::ng-deep .ant-input {
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+::ng-deep .ant-input:focus,
+::ng-deep .ant-input:hover {
+  border-color: var(--color-primary);
+}
+
+::ng-deep .ant-input-number {
+  width: 100%;
+}
+
+::ng-deep .ant-input-number-input {
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+::ng-deep .ant-input-number:focus,
+::ng-deep .ant-input-number:hover {
+  border-color: var(--color-primary);
+}
+
+::ng-deep .ant-select-selector {
+  border-color: var(--color-border) !important;
+  background-color: var(--color-surface) !important;
+}
+
+::ng-deep .ant-select-focused .ant-select-selector {
+  border-color: var(--color-primary) !important;
+}
+
+::ng-deep .ant-select-selection-item {
+  color: var(--color-text-primary) !important;
+}
+
+::ng-deep .ant-btn-default {
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+::ng-deep .ant-btn-default:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+::ng-deep .ant-btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+::ng-deep .ant-btn-primary:hover,
+::ng-deep .ant-btn-primary:focus {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+::ng-deep .ant-btn-primary[disabled] {
+  background-color: var(--color-bg-section);
+  border-color: var(--color-border);
+  color: var(--color-border);
+}
+
+::ng-deep .ant-form-item-explain-error {
+  color: var(--color-error);
+}

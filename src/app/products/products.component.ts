@@ -10,8 +10,10 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { ProductService } from '../services/product.service';
 import { Product, ProductsResponse } from '../models/product.model';
+import { ProductFormComponent } from './product-form/product-form.component';
 
 @Component({
   selector: 'app-products',
@@ -26,7 +28,9 @@ import { Product, ProductsResponse } from '../models/product.model';
     NzButtonModule,
     NzTagModule,
     NzInputModule,
-    NzIconModule
+    NzIconModule,
+    NzDrawerModule,
+    ProductFormComponent
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
@@ -38,6 +42,7 @@ export class ProductsComponent implements OnInit {
   pageSize = 10;
   total = 0;
   searchValue = '';
+  drawerVisible = false;
   
   private productService = inject(ProductService);
   private message = inject(NzMessageService);
@@ -106,6 +111,21 @@ export class ProductsComponent implements OnInit {
       'others': 'Outros'
     };
     return translations[type.toLowerCase()] || this.capitalizeType(type);
+  }
+
+  openDrawer(): void {
+    this.drawerVisible = true;
+  }
+
+  closeDrawer(): void {
+    this.drawerVisible = false;
+  }
+
+  onProductCreated(): void {
+    this.closeDrawer();
+    // Volta para a primeira página e recarrega os produtos
+    this.currentPage = 1;
+    this.loadProducts();
   }
 
   Math = Math;
