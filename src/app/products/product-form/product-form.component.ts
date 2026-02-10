@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -8,7 +8,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ProductService } from '../../services/product.service';
-import { CreateProductRequest } from '../../models/product.model';
+import { CreateProductRequest, Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-form',
@@ -25,13 +25,15 @@ import { CreateProductRequest } from '../../models/product.model';
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css'
 })
-export class ProductFormComponent {
+export class ProductFormComponent implements OnChanges {
+  @Input() product: Product | null = null;
   @Output() productCreated = new EventEmitter<void>();
+  @Output() productUpdated = new EventEmitter<void>();
   @Output() cancelled = new EventEmitter<void>();
 
   productForm: FormGroup;
   isSubmitting = false;
-  
+
   productTypes = [
     { label: 'Medicação', value: 'medication' },
     { label: 'Vitamina', value: 'vitamin' },
@@ -53,6 +55,18 @@ export class ProductFormComponent {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['product'] && this.product) {
+      this.productForm.patchValue({
+        name: this.product.name,
+        price: parseFloat(this.product.price),
+        type: this.product.type
+      });
+    } else if (changes['product'] && !this.product) {
+      this.productForm.reset();
+    }
+  }
+
   onSubmit(): void {
     if (this.productForm.valid) {
       this.isSubmitting = true;
@@ -62,16 +76,25 @@ export class ProductFormComponent {
         type: this.productForm.value.type
       };
 
-      this.productService.createProduct(productData).subscribe({
+      const request = this.product
+        ? this.productService.updateProduct(this.product.id, productData)
+        : this.productService.createProduct(productData);
+
+      request.subscribe({
         next: () => {
           this.isSubmitting = false;
-          this.message.success('Produto cadastrado com sucesso!');
+          this.message.success(this.product ? 'Produto atualizado com sucesso!' : 'Produto cadastrado com sucesso!');
           this.productForm.reset();
-          this.productCreated.emit();
+          if (this.product) {
+            this.productUpdated.emit();
+          } else {
+            this.productCreated.emit();
+          }
         },
         error: (error) => {
           this.isSubmitting = false;
-          const errorMessage = error.error?.message || 'Erro ao cadastrar produto. Tente novamente.';
+          const action = this.product ? 'atualizar' : 'cadastrar';
+          const errorMessage = error.error?.message || `Erro ao ${action} produto. Tente novamente.`;
           this.message.error(errorMessage);
         }
       });

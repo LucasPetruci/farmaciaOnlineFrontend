@@ -55,7 +55,7 @@
               </td>
               <td>{{ formatDate(product.created_at) }}</td>
               <td>
-                <button nz-button nzType="link" nzSize="small">
+                <button nz-button nzType="link" nzSize="small" (click)="openEditDrawer(product)">
                   <span nz-icon nzType="edit" nzTheme="outline"></span>
                 </button>
               </td>
@@ -87,13 +87,15 @@
 
   <nz-drawer
     [nzVisible]="drawerVisible"
-    nzTitle="Cadastrar Produto"
+    [nzTitle]="drawerTitle"
     [nzWidth]="drawerWidth"
     [nzPlacement]="'right'"
     (nzOnClose)="closeDrawer()">
     <ng-container *nzDrawerContent>
       <app-product-form
+        [product]="productToEdit"
         (productCreated)="onProductCreated()"
+        (productUpdated)="onProductUpdated()"
         (cancelled)="closeDrawer()">
       </app-product-form>
     </ng-container>

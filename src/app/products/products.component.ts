@@ -43,7 +43,8 @@ export class ProductsComponent implements OnInit {
   total = 0;
   searchValue = '';
   drawerVisible = false;
-  
+  productToEdit: Product | null = null;
+
   private productService = inject(ProductService);
   private message = inject(NzMessageService);
 
@@ -114,11 +115,18 @@ export class ProductsComponent implements OnInit {
   }
 
   openDrawer(): void {
+    this.productToEdit = null;
+    this.drawerVisible = true;
+  }
+
+  openEditDrawer(product: Product): void {
+    this.productToEdit = product;
     this.drawerVisible = true;
   }
 
   closeDrawer(): void {
     this.drawerVisible = false;
+    this.productToEdit = null;
   }
 
   onProductCreated(): void {
@@ -127,8 +135,17 @@ export class ProductsComponent implements OnInit {
     this.loadProducts();
   }
 
+  onProductUpdated(): void {
+    this.closeDrawer();
+    this.loadProducts();
+  }
+
   get drawerWidth(): number | string {
     return window.innerWidth <= 768 ? '100%' : 400;
+  }
+
+  get drawerTitle(): string {
+    return this.productToEdit ? 'Editar Produto' : 'Cadastrar Produto';
   }
 
   Math = Math;
