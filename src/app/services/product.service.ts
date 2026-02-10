@@ -9,11 +9,13 @@ import { ProductsResponse, Product, CreateProductRequest } from '../models/produ
 export class ProductService {
   private http = inject(HttpClient);
 
-  getProducts(page: number = 1, perPage: number = 10): Observable<ProductsResponse> {
-    const params = new HttpParams()
+  getProducts(page: number = 1, perPage: number = 10, search?: string): Observable<ProductsResponse> {
+    let params = new HttpParams()
       .set('page', page.toString())
       .set('per_page', perPage.toString());
-    
+    if (search && search.trim()) {
+      params = params.set('search', search.trim());
+    }
     return this.http.get<ProductsResponse>('/products', { params });
   }
 

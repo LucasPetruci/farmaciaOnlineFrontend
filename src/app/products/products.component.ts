@@ -1,6 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -35,7 +37,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   isLoading = false;
   currentPage = 1;
@@ -47,14 +49,27 @@ export class ProductsComponent implements OnInit {
 
   private productService = inject(ProductService);
   private message = inject(NzMessageService);
+  private search$ = new Subject<string>();
 
   ngOnInit(): void {
+    this.search$.pipe(debounceTime(300), distinctUntilChanged()).subscribe(() => {
+      this.currentPage = 1;
+      this.loadProducts();
+    });
     this.loadProducts();
+  }
+
+  ngOnDestroy(): void {
+    this.search$.complete();
+  }
+
+  onSearchChange(): void {
+    this.search$.next(this.searchValue);
   }
 
   loadProducts(): void {
     this.isLoading = true;
-    this.productService.getProducts(this.currentPage, this.pageSize).subscribe({
+    this.productService.getProducts(this.currentPage, this.pageSize, this.searchValue).subscribe({
       next: (response: ProductsResponse) => {
         this.products = response.data;
         this.total = response.total;

@@ -13,7 +13,8 @@
         type="text" 
         nz-input 
         placeholder="Pesquisar" 
-        [(ngModel)]="searchValue" />
+        [(ngModel)]="searchValue"
+        (ngModelChange)="onSearchChange()" />
     </nz-input-group>
     <ng-template #suffixIconSearch>
       <span nz-icon nzType="search" nzTheme="outline"></span>
