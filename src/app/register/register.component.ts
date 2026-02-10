@@ -52,10 +52,10 @@ export class RegisterComponent {
       };
       
       this.authService.register(data).subscribe({
-        next: (response) => {
+        next: () => {
           this.isLoading = false;
-          this.message.success('Cadastro realizado');
-          // TODO: Redirecionar para página de produtos
+          this.message.success('Cadastro realizado com sucesso!');
+          this.router.navigate(['/products']);
         },
         error: (error) => {
           this.isLoading = false;

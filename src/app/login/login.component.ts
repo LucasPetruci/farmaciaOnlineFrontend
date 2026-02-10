@@ -52,10 +52,10 @@ export class LoginComponent {
       };
       
       this.authService.login(credentials).subscribe({
-        next: (response) => {
+        next: () => {
           this.isLoading = false;
-          this.message.success('Login realizado');
-          // TODO: Redirecionar para página de produtos
+          this.message.success('Login realizado com sucesso!');
+          this.router.navigate(['/products']);
         },
         error: (error) => {
           this.isLoading = false;
