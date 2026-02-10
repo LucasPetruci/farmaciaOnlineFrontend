@@ -1,0 +1,198 @@
+.products-container {
+  padding: 24px;
+  background: var(--color-bg-page);
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+}
+
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.products-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.add-button {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-button:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.search-section {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  max-width: 400px;
+}
+
+.filter-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.products-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 200px);
+}
+
+::ng-deep .products-card .ant-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .products-card .ant-card-body {
+  background: var(--color-surface);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 250px);
+  overflow: hidden;
+}
+
+::ng-deep .products-card .ant-spin-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.table-wrapper {
+  overflow-y: auto;
+  max-height: calc(100vh - 450px);
+  margin-bottom: 24px;
+}
+
+::ng-deep .table-wrapper .ant-table-wrapper {
+  display: block;
+}
+
+::ng-deep .products-card .ant-table {
+  background: var(--color-surface);
+}
+
+::ng-deep .products-card .ant-table-thead > tr > th {
+  background: var(--color-bg-section);
+  border-bottom: 2px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  padding: 16px;
+}
+
+::ng-deep .products-card .ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--color-border);
+  padding: 16px;
+  color: var(--color-text-primary);
+}
+
+::ng-deep .products-card .ant-table-tbody > tr:hover > td {
+  background: var(--color-bg-section);
+}
+
+::ng-deep .products-card .ant-table-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+}
+
+.pagination-info {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+::ng-deep .pagination-container .ant-pagination {
+  margin: 0;
+}
+
+::ng-deep .pagination-container .ant-pagination-item {
+  border-color: var(--color-border);
+}
+
+::ng-deep .pagination-container .ant-pagination-item a {
+  color: var(--color-text-primary);
+}
+
+::ng-deep .pagination-container .ant-pagination-item-active {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+::ng-deep .pagination-container .ant-pagination-item-active a {
+  color: var(--color-white);
+}
+
+::ng-deep .pagination-container .ant-pagination-prev,
+::ng-deep .pagination-container .ant-pagination-next {
+  border-color: var(--color-border);
+}
+
+::ng-deep .pagination-container .ant-pagination-prev a,
+::ng-deep .pagination-container .ant-pagination-next a {
+  color: var(--color-text-primary);
+}
+
+::ng-deep .pagination-container .ant-pagination-prev:hover a,
+::ng-deep .pagination-container .ant-pagination-next:hover a {
+  color: var(--color-primary);
+}
+
+::ng-deep .pagination-container .ant-pagination-disabled a {
+  color: var(--color-border);
+}
+
+::ng-deep .pagination-container .ant-select {
+  border-color: var(--color-border);
+}
+
+::ng-deep .pagination-container .ant-select-selector {
+  border-color: var(--color-border);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--color-text-secondary);
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 16px;
+}

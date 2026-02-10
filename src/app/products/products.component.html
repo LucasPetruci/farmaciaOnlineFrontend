@@ -1,0 +1,87 @@
+<div class="products-container">
+  <div class="products-header">
+    <h1 class="products-title">Produtos</h1>
+    <button nz-button nzType="primary" class="add-button">
+      <span nz-icon nzType="plus" nzTheme="outline"></span>
+      Cadastrar
+    </button>
+  </div>
+
+  <div class="search-section">
+    <nz-input-group [nzSuffix]="suffixIconSearch" class="search-input">
+      <input 
+        type="text" 
+        nz-input 
+        placeholder="Pesquisar" 
+        [(ngModel)]="searchValue" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search" nzTheme="outline"></span>
+    </ng-template>
+    <button nz-button nzType="default" class="filter-button">
+      <span nz-icon nzType="filter" nzTheme="outline"></span>
+      Mais Filtros
+    </button>
+  </div>
+
+  <nz-card class="products-card">
+    <nz-spin [nzSpinning]="isLoading">
+      <div class="table-wrapper">
+        <nz-table 
+          #basicTable 
+          [nzData]="products" 
+          [nzLoading]="isLoading"
+          [nzShowPagination]="false"
+          [nzPageSize]="pageSize">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Preço</th>
+              <th>Tipo</th>
+              <th>Criado em</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products">
+              <td>#{{ product.id }}</td>
+              <td>{{ product.name }}</td>
+              <td>R$ {{ formatPrice(product.price) }}</td>
+              <td>
+                <nz-tag [nzColor]="getTypeColor(product.type)">
+                  {{ translateType(product.type) }}
+                </nz-tag>
+              </td>
+              <td>{{ formatDate(product.created_at) }}</td>
+              <td>
+                <button nz-button nzType="link" nzSize="small">
+                  <span nz-icon nzType="edit" nzTheme="outline"></span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+
+      <div class="pagination-container" *ngIf="!isLoading">
+        <div class="pagination-info" *ngIf="total > 0">
+          {{ (currentPage - 1) * pageSize + 1 }}-{{ Math.min(currentPage * pageSize, total) }} de {{ total }} itens
+        </div>
+        <nz-pagination
+          *ngIf="total > 0"
+          [nzPageIndex]="currentPage"
+          [nzTotal]="total"
+          [nzPageSize]="pageSize"
+          [nzShowSizeChanger]="true"
+          [nzPageSizeOptions]="[10, 15, 20, 30, 50]"
+          (nzPageIndexChange)="onPageChange($event)"
+          (nzPageSizeChange)="pageSize = $event; currentPage = 1; loadProducts()">
+        </nz-pagination>
+        <div *ngIf="total === 0 && products.length === 0" class="pagination-info">
+          Nenhum produto encontrado
+        </div>
+      </div>
+    </nz-spin>
+  </nz-card>
+</div>

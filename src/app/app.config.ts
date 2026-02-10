@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
-import { EyeOutline, EyeInvisibleOutline, PlusOutline, SearchOutline, FilterOutline, EllipsisOutline, LogoutOutline, DownOutline } from '@ant-design/icons-angular/icons';
+import { EyeOutline, EyeInvisibleOutline, PlusOutline, SearchOutline, FilterOutline, EllipsisOutline, LogoutOutline, DownOutline, EditOutline } from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
@@ -24,7 +24,8 @@ const icons: IconDefinition[] = [
   FilterOutline, 
   EllipsisOutline,
   LogoutOutline,
-  DownOutline
+  DownOutline,
+  EditOutline
 ];
 
 export const appConfig: ApplicationConfig = {
