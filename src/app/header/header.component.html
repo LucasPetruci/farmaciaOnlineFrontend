@@ -6,5 +6,20 @@
         <span class="logo-text">Farmacia Online</span>
       </div>
     </div>
+    
+    <div class="header-actions" *ngIf="isAuthenticated">
+      <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" nzPlacement="bottomRight" class="user-menu-trigger">
+        <span class="user-name" *ngIf="userName">{{ userName }}</span>
+        <span nz-icon nzType="down" nzTheme="outline" class="dropdown-icon"></span>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item (click)="logout()" class="logout-item">
+            <span nz-icon nzType="logout" nzTheme="outline"></span>
+            <span> Sair</span>
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
   </div>
 </header>

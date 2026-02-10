@@ -8,8 +8,6 @@
 }
 
 .header-content {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,4 +38,73 @@
   color: var(--color-white);
   letter-spacing: 0.5px;
   text-align: center;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.user-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.user-menu-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-name {
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.dropdown-icon {
+  font-size: 12px;
+  transition: transform 0.2s;
+}
+
+::ng-deep .ant-dropdown-open .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+::ng-deep .header-actions .ant-dropdown-menu {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+::ng-deep .header-actions .ant-dropdown-menu-item {
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  padding: 12px 16px;
+}
+
+::ng-deep .header-actions .ant-dropdown-menu-item:hover {
+  background-color: var(--color-bg-section);
+}
+
+::ng-deep .header-actions .ant-dropdown-menu-item.logout-item {
+  color: var(--color-error);
+  font-weight: 500;
+}
+
+::ng-deep .header-actions .ant-dropdown-menu-item.logout-item:hover {
+  color: var(--color-error);
+  background-color: rgba(220, 38, 38, 0.1);
+}
+
+::ng-deep .header-actions .ant-dropdown-menu-item.logout-item span[nz-icon] {
+  font-size: 18px;
 }
