@@ -10,6 +10,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
@@ -30,6 +32,8 @@ import { ProductFormComponent } from './product-form/product-form.component';
     NzButtonModule,
     NzTagModule,
     NzInputModule,
+    NzSelectModule,
+    NzFormModule,
     NzIconModule,
     NzDrawerModule,
     ProductFormComponent
@@ -44,8 +48,23 @@ export class ProductsComponent implements OnInit, OnDestroy {
   pageSize = 10;
   total = 0;
   searchValue = '';
+  sortBy = '';
+  sortOrder: 'asc' | 'desc' = 'asc';
   drawerVisible = false;
+  filterDrawerVisible = false;
   productToEdit: Product | null = null;
+
+  sortByOptions = [
+    { label: 'Normal', value: '' },
+    { label: 'Preço', value: 'price' },
+    { label: 'Tipo', value: 'type' },
+    { label: 'Data de criação', value: 'created_at' }
+  ];
+
+  sortOrderOptions = [
+    { label: 'Crescente', value: 'asc' },
+    { label: 'Decrescente', value: 'desc' }
+  ];
 
   private productService = inject(ProductService);
   private message = inject(NzMessageService);
@@ -69,7 +88,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   loadProducts(): void {
     this.isLoading = true;
-    this.productService.getProducts(this.currentPage, this.pageSize, this.searchValue).subscribe({
+    this.productService
+      .getProducts(this.currentPage, this.pageSize, this.searchValue, this.sortBy, this.sortOrder)
+      .subscribe({
       next: (response: ProductsResponse) => {
         this.products = response.data;
         this.total = response.total;
@@ -86,6 +107,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   onPageChange(page: number): void {
     this.currentPage = page;
+    this.loadProducts();
+  }
+
+  onPageSizeChange(size: number): void {
+    this.pageSize = size;
+    this.currentPage = 1;
     this.loadProducts();
   }
 
@@ -139,9 +166,23 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.drawerVisible = true;
   }
 
+  openFilterDrawer(): void {
+    this.filterDrawerVisible = true;
+  }
+
   closeDrawer(): void {
     this.drawerVisible = false;
     this.productToEdit = null;
+  }
+
+  closeFilterDrawer(): void {
+    this.filterDrawerVisible = false;
+  }
+
+  applyFilters(): void {
+    this.currentPage = 1;
+    this.loadProducts();
+    this.closeFilterDrawer();
   }
 
   onProductCreated(): void {

@@ -219,6 +219,21 @@
   background: var(--color-surface);
 }
 
+.filter-drawer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter-drawer-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+}
+
 @media (max-width: 768px) {
   ::ng-deep .ant-drawer-content-wrapper {
     width: 100% !important;

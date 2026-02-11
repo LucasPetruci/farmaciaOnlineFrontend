@@ -19,7 +19,7 @@
     <ng-template #suffixIconSearch>
       <span nz-icon nzType="search" nzTheme="outline"></span>
     </ng-template>
-    <button nz-button nzType="default" class="filter-button">
+    <button nz-button nzType="default" class="filter-button" (click)="openFilterDrawer()">
       <span nz-icon nzType="filter" nzTheme="outline"></span>
       Filtros
     </button>
@@ -99,6 +99,44 @@
         (productUpdated)="onProductUpdated()"
         (cancelled)="closeDrawer()">
       </app-product-form>
+    </ng-container>
+  </nz-drawer>
+
+  <nz-drawer
+    [nzVisible]="filterDrawerVisible"
+    nzTitle="Filtros"
+    [nzWidth]="drawerWidth"
+    [nzPlacement]="'right'"
+    (nzOnClose)="closeFilterDrawer()">
+    <ng-container *nzDrawerContent>
+      <div class="filter-drawer-content">
+        <nz-form-item>
+          <nz-form-label>Ordenar por</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              [(ngModel)]="sortBy"
+              nzPlaceHolder="Ordenar por"
+              style="width: 100%">
+              <nz-option *ngFor="let opt of sortByOptions" [nzLabel]="opt.label" [nzValue]="opt.value"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="sortBy">
+          <nz-form-label>Ordem</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              [(ngModel)]="sortOrder"
+              nzPlaceHolder="Ordem"
+              style="width: 100%">
+              <nz-option *ngFor="let opt of sortOrderOptions" [nzLabel]="opt.label" [nzValue]="opt.value"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="filter-drawer-footer">
+        <button nz-button nzType="default" (click)="closeFilterDrawer()">Cancelar</button>
+        <button nz-button nzType="primary" (click)="applyFilters()">Aplicar</button>
+      </div>
     </ng-container>
   </nz-drawer>
 </div>
